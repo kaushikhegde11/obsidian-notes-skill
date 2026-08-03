@@ -90,6 +90,10 @@ Then answer the intake prompts. The skill creates the files in your vault and re
 
 This skill runs entirely on your machine. It reads and writes files under the vault path **you** configure, and makes no network calls. See [`SECURITY.md`](SECURITY.md). A `scripts/check-secrets.sh` guard is included so contributors do not commit personal paths, emails, or keys.
 
+## Related
+
+- [obsidian-project-memory](https://github.com/kaushikhegde11/obsidian-project-memory) — companion skills that give each project a durable memory (README / STATUS / progress / decisions) in your vault.
+
 ## License
 
 [MIT](LICENSE).
