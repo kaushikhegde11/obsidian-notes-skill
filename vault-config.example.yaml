@@ -1,0 +1,44 @@
+# obsidian-notes-skill — vault configuration
+#
+# Copy this file to `vault-config.yaml` (same folder) and edit it, OR just run
+# the skill once and let the setup wizard write it for you.
+# The real `vault-config.yaml` is gitignored — it holds your machine path.
+#
+# Any folder role may be null or "" — the skill then uses `folders.default`
+# (set default to "" for a flat vault where notes live in the vault root).
+
+vault_root: "/absolute/path/to/your/Obsidian/Vault"
+
+# Informational only. Set by the wizard preset. One of: zettelkasten | para | flat | custom
+structure_model: zettelkasten
+
+folders:
+  rough:     "1. Rough Notes"    # scratch / fleeting notes; null if unused
+  source:    "2. Source Material" # notes from books/articles/videos; null if unused
+  main:      "6. Main Notes"     # permanent / atomic notes
+  tags:      "3. Tags"           # folder of tag notes; null if tags are not folder-based
+  templates: "4. Template"       # optional
+  indexes:   "5. Indexes"        # optional
+  default:   ""                  # fallback folder; "" = vault root (flat vault)
+
+# Subfolders inside the source folder, offered when filing a source note.
+# [] = no subfolders (file directly in the source folder or root).
+source_subfolders: [Books, Articles, Videos, Websites]
+
+tags:
+  style: wikilink-stub           # wikilink-stub | hashtag | yaml | none
+  create_stub: true              # wikilink-stub only: create an empty [[tag]] note if missing
+  min: 1
+  max: 5
+
+date:
+  format: "DD-MM-YYYY"           # DD-MM-YYYY | YYYY-MM-DD | DD-Mon-YYYY | null
+  position: top                  # top | frontmatter | none
+
+promotion:
+  enabled: true                  # allow promoting a source topic to its own main note
+  link_style: heading            # heading (`## [[Topic]]`) | bullet (`- [[Topic]]`)
+
+wrapper:
+  title: h1                      # note title is a level-1 heading (`# Title`)
+  reference_heading: "# Reference" # trailing links section; null = none

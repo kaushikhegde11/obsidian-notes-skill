@@ -1,3 +1,5 @@
+> Note: this describes the **Zettelkasten preset** — one layout the skill supports. The skill also works with PARA, flat, and custom vaults. Your own structure lives in `vault-config.yaml`.
+
 The structure of the Obsidian vault described in the sources is designed to be a **minimalist, "bullshit-free" Zettelkasten system** that focuses on the writing process rather than complex plugins. The system uses six primary folders to organize knowledge, moving from temporary thoughts to permanent, connected insights.
 
 Below is the detailed structure of these sections as maintained in the system:

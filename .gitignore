@@ -3,6 +3,9 @@
 *.vault/
 vault/
 
+# Per-machine vault config (holds an absolute path). Ships as .example only.
+vault-config.yaml
+
 # Secrets / credentials
 .env
 .env.*

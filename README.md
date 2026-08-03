@@ -27,20 +27,38 @@ git clone https://github.com/kaushikhegde11/obsidian-notes-skill \
 
 Claude Code discovers the skill on the next session.
 
-## Configure your vault path
+## First run: the setup wizard
 
-The skill ships with a placeholder, `<VAULT_ROOT>`. Point it at your vault by editing two lines in `SKILL.md`:
+You do not edit `SKILL.md`. The first time you use the skill, it runs a short **setup wizard**:
 
-1. The `description:` line in the front matter — replace *"The vault path is set by the user (see README)."* with your absolute vault path.
-2. The `**Vault root:**` line near the top of the body — replace `<VAULT_ROOT>` with the same path.
+1. It asks for your vault path and scans your top-level folders.
+2. It offers a layout preset — **Zettelkasten**, **PARA**, **Flat**, or **Custom** — and lets you adjust it.
+3. It asks you to map roles (rough / source / main / tags …) to your real folders, and to pick your **tag style**, **date format**, and **promotion style**.
+4. It saves your answers to `vault-config.yaml` in the skill folder.
 
-Example:
+Every later run reads `vault-config.yaml` and skips the wizard. To reconfigure, delete that file (or edit it by hand) and run the skill again.
 
+### Configure by hand instead
+
+Prefer not to use the wizard? Copy the template and edit it:
+
+```bash
+cp ~/.claude/skills/obsidian-notes-skill/vault-config.example.yaml \
+   ~/.claude/skills/obsidian-notes-skill/vault-config.yaml
 ```
-**Vault root:** `~/Documents/Obsidian/MyVault`
-```
 
-Nothing else is machine-specific. The folder and tag names the skill reads (`3. Tags/`, `2. Source Material/…`) are discovered live from your vault at runtime.
+`vault-config.example.yaml` documents every field. Key points:
+
+- Any folder role may be `null` or `""`. An empty role falls back to `folders.default`. Set `default: ""` for a **flat vault** (notes go in the vault root).
+- `tags.style` is one of `wikilink-stub`, `hashtag`, `yaml`, or `none`.
+- `date.format` is one of `DD-MM-YYYY`, `YYYY-MM-DD`, `DD-Mon-YYYY`, or `null`.
+- `promotion` controls whether a source topic can become its own main note, and the link style.
+
+Your real `vault-config.yaml` is gitignored — it holds a machine path and is never committed.
+
+### Works with any vault
+
+The skill does not assume a fixed layout. Zettelkasten, PARA, a flat folder of notes, or your own scheme all work — the config describes your vault, and the skill follows it. The [`reference/obsidian-structure.md`](reference/obsidian-structure.md) file describes the Zettelkasten preset as one example.
 
 ## How access works (permissions)
 
