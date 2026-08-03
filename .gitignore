@@ -1,0 +1,27 @@
+# Never commit vault content
+# (Obsidian notes are personal — keep them out of this repo)
+*.vault/
+vault/
+
+# Secrets / credentials
+.env
+.env.*
+*.key
+*.pem
+*.p12
+*.pfx
+id_rsa*
+*service-account*.json
+credentials.json
+
+# Logs
+*.log
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Dependencies (in case tooling is added later)
+node_modules/
