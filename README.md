@@ -33,6 +33,19 @@ To update later, refresh the marketplace and reinstall:
 /plugin marketplace update obsidian-notes
 ```
 
+### Or install with npm
+
+Prefer the terminal? This runs a small script that copies the skill into
+`~/.claude/skills/obsidian-notes-skill`:
+
+```bash
+npx obsidian-notes-skill
+```
+
+Re-run the same command to update. Restart Claude Code afterward. (Installed this
+way, Claude Code treats it as a plain skill, not a `/plugin`-managed plugin — both
+routes end up with the same skill and the same `~/.claude/obsidian-notes-vault-config.yaml`.)
+
 ## First run: the setup wizard
 
 You do not edit `SKILL.md`. The first time you use the skill, it runs a short **setup wizard**:

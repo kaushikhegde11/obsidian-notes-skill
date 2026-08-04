@@ -1,0 +1,33 @@
+{
+  "name": "obsidian-notes-skill",
+  "version": "1.0.0",
+  "description": "Claude Code skill that files and formats notes into your own Obsidian vault structure. Installs the skill into ~/.claude/skills.",
+  "bin": {
+    "obsidian-notes-skill": "bin/install.js"
+  },
+  "files": [
+    "bin",
+    "skills"
+  ],
+  "engines": {
+    "node": ">=16.7.0"
+  },
+  "keywords": [
+    "claude",
+    "claude-code",
+    "obsidian",
+    "zettelkasten",
+    "notes",
+    "skill"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kaushikhegde11/obsidian-notes-skill.git"
+  },
+  "homepage": "https://github.com/kaushikhegde11/obsidian-notes-skill#readme",
+  "bugs": {
+    "url": "https://github.com/kaushikhegde11/obsidian-notes-skill/issues"
+  },
+  "author": "Kaushik Hegde",
+  "license": "MIT"
+}
