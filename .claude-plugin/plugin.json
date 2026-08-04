@@ -1,0 +1,8 @@
+{
+  "name": "obsidian-notes",
+  "description": "File and reformat notes into the user's own Obsidian vault structure. Learns each vault once through a setup wizard, then reuses it. Works with Zettelkasten, PARA, flat, or custom layouts.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Kaushik Hegde"
+  }
+}

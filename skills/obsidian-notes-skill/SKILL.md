@@ -9,18 +9,24 @@ File and format notes into the user's Obsidian vault. Every vault is different, 
 
 The Zettelkasten ideas below (atomic notes, own words, interlinking) are **guidance**, not requirements. A user's config decides the actual folders and conventions.
 
+## Config file location
+
+The user's saved config lives at **`~/.claude/obsidian-notes-vault-config.yaml`** (expand `~` to the user's home dir). Call this path `<CONFIG>` below. It is kept outside this skill's folder on purpose: this skill may be installed as a plugin under a read-only or auto-updated directory, so writing config next to `SKILL.md` is not safe. Always read and write `<CONFIG>` at the home path.
+
+Migration: if `<CONFIG>` does not exist but a legacy `vault-config.yaml` sits next to `SKILL.md`, copy that legacy file to `<CONFIG>` once, then use `<CONFIG>` from then on.
+
 ## Step 1 — Load config or run setup (always first)
 
-Read `vault-config.yaml` in this skill's own folder (next to `SKILL.md`).
+Read `<CONFIG>` (`~/.claude/obsidian-notes-vault-config.yaml`).
 
 - If the file exists and has a `vault_root` and a `folders` block → **load it**. Use its values for everything below. Do not run the wizard.
 - If the file is missing or incomplete → **run the Setup wizard** (next section), write the file, then continue.
 
-`vault-config.example.yaml` (same folder) documents every field. Never invent a structure. Read it from config or ask.
+`vault-config.example.yaml` (in this skill's own folder, next to `SKILL.md`) documents every field. Never invent a structure. Read it from config or ask.
 
 ## Step 2 — Setup wizard (only when config is missing)
 
-Goal: learn this vault and write `vault-config.yaml`. Ask with the `AskUserQuestion` tool. Write each question in Simplified Technical English. Obey the four-button limit (below).
+Goal: learn this vault and write `<CONFIG>`. Ask with the `AskUserQuestion` tool. Write each question in Simplified Technical English. Obey the four-button limit (below).
 
 1. **Vault root.** Ask for the absolute path to the vault. Then scan its top-level folders with a read-only `ls`/`find`. Keep the real folder names for the next questions.
 2. **Preset.** Ask: "Which layout matches your vault?" Buttons: `Zettelkasten`, `PARA`, `Flat (no folders)`, `Custom`. The preset pre-fills the role map. The user adjusts it next.
@@ -30,7 +36,7 @@ Goal: learn this vault and write `vault-config.yaml`. Ask with the `AskUserQuest
 6. **Date format.** Ask: "Which date do you put on a note?" Buttons: `DD-MM-YYYY`, `YYYY-MM-DD`, `DD-Mon-YYYY`, `none`.
 7. **Promotion.** Ask: "May a source topic become its own main note?" If yes, ask the link style: `## [[heading]]` or `- [[bullet]]`.
 
-Write the answers to `vault-config.yaml` using the schema in `vault-config.example.yaml`. Then tell the user the setup is saved and continue with the note they asked for.
+Write the answers to `<CONFIG>` (`~/.claude/obsidian-notes-vault-config.yaml`) using the schema in `vault-config.example.yaml`. Create the `~/.claude` dir if missing. Then tell the user the setup is saved and continue with the note they asked for.
 
 ## The four-button limit
 The tool shows four buttons for each question. A vault has more folders and tags than four. Use these rules:
@@ -44,7 +50,7 @@ Good question: "Which tags apply to this note?"
 Bad question: "Which tags apply? Full list is 33 (AI, coding, ux, portfolio …). Pick or add via Other."
 
 ## Config values used below
-Read these from `vault-config.yaml`. The names in `<…>` refer to config fields.
+Read these from `<CONFIG>`. The names in `<…>` refer to config fields.
 - `<VAULT_ROOT>` = `vault_root`.
 - Role folders = `folders.rough`, `folders.source`, `folders.main`, `folders.tags`, `folders.templates`, `folders.indexes`. A null/`""` role → use `folders.default` (which is `""` for a flat vault = the vault root).
 - `<TAG_STYLE>` = `tags.style`; `<DATE>` = `date.format` / `date.position`; `<PROMO>` = `promotion.enabled` + `promotion.link_style`; `<TITLE>` = `wrapper.title`; `<REF>` = `wrapper.reference_heading`.
@@ -125,4 +131,4 @@ A rough note is a scratch buffer. Keep it light.
 
 ## Notes
 - `reference/obsidian-structure.md` describes the Zettelkasten preset. It is one preset among several, not the required layout.
-- When unsure which folder, tag, or convention applies, read `vault-config.yaml`. If it is still unclear, ask. Do not assume.
+- When unsure which folder, tag, or convention applies, read `<CONFIG>`. If it is still unclear, ask. Do not assume.

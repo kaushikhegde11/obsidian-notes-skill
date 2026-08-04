@@ -14,18 +14,24 @@ It is built around a six-folder system: `1. Rough Notes`, `2. Source Material`, 
 ## Requirements
 
 - Claude Code installed.
-- An Obsidian vault that uses (or will adopt) the six-folder structure described in [`reference/obsidian-structure.md`](reference/obsidian-structure.md).
+- An Obsidian vault that uses (or will adopt) the six-folder structure described in [`reference/obsidian-structure.md`](skills/obsidian-notes-skill/reference/obsidian-structure.md).
 
 ## Install
 
-Clone straight into your Claude Code skills directory:
+Install as a Claude Code plugin. In Claude Code:
 
-```bash
-git clone https://github.com/kaushikhegde11/obsidian-notes-skill \
-  ~/.claude/skills/obsidian-notes-skill
+```
+/plugin marketplace add kaushikhegde11/obsidian-notes-skill
+/plugin install obsidian-notes
 ```
 
-Claude Code discovers the skill on the next session.
+Restart Claude Code when prompted. The skill is discovered on the next session.
+
+To update later, refresh the marketplace and reinstall:
+
+```
+/plugin marketplace update obsidian-notes
+```
 
 ## First run: the setup wizard
 
@@ -34,17 +40,19 @@ You do not edit `SKILL.md`. The first time you use the skill, it runs a short **
 1. It asks for your vault path and scans your top-level folders.
 2. It offers a layout preset — **Zettelkasten**, **PARA**, **Flat**, or **Custom** — and lets you adjust it.
 3. It asks you to map roles (rough / source / main / tags …) to your real folders, and to pick your **tag style**, **date format**, and **promotion style**.
-4. It saves your answers to `vault-config.yaml` in the skill folder.
+4. It saves your answers to `~/.claude/obsidian-notes-vault-config.yaml`.
 
-Every later run reads `vault-config.yaml` and skips the wizard. To reconfigure, delete that file (or edit it by hand) and run the skill again.
+Every later run reads that file and skips the wizard. To reconfigure, delete it (or edit it by hand) and run the skill again.
+
+> The config lives at `~/.claude/obsidian-notes-vault-config.yaml`, **outside** the plugin folder, so a plugin update never overwrites it and a read-only plugin dir can't block saving.
 
 ### Configure by hand instead
 
-Prefer not to use the wizard? Copy the template and edit it:
+Prefer not to use the wizard? Copy the template (from the installed plugin) and edit it:
 
 ```bash
-cp ~/.claude/skills/obsidian-notes-skill/vault-config.example.yaml \
-   ~/.claude/skills/obsidian-notes-skill/vault-config.yaml
+cp <plugin-dir>/skills/obsidian-notes-skill/vault-config.example.yaml \
+   ~/.claude/obsidian-notes-vault-config.yaml
 ```
 
 `vault-config.example.yaml` documents every field. Key points:
@@ -54,22 +62,22 @@ cp ~/.claude/skills/obsidian-notes-skill/vault-config.example.yaml \
 - `date.format` is one of `DD-MM-YYYY`, `YYYY-MM-DD`, `DD-Mon-YYYY`, or `null`.
 - `promotion` controls whether a source topic can become its own main note, and the link style.
 
-Your real `vault-config.yaml` is gitignored — it holds a machine path and is never committed.
+Your real config lives at `~/.claude/obsidian-notes-vault-config.yaml` — outside this repo entirely, so a machine path is never committed.
 
 ### Works with any vault
 
-The skill does not assume a fixed layout. Zettelkasten, PARA, a flat folder of notes, or your own scheme all work — the config describes your vault, and the skill follows it. The [`reference/obsidian-structure.md`](reference/obsidian-structure.md) file describes the Zettelkasten preset as one example.
+The skill does not assume a fixed layout. Zettelkasten, PARA, a flat folder of notes, or your own scheme all work — the config describes your vault, and the skill follows it. The [`reference/obsidian-structure.md`](skills/obsidian-notes-skill/reference/obsidian-structure.md) file describes the Zettelkasten preset as one example.
 
 ## How access works (permissions)
 
-Installing this skill grants it **nothing**. A skill is plain Markdown instructions — no code, no runtime, no install-time permission prompt. `git clone` only drops text files into `~/.claude/skills/`.
+Installing this plugin grants it **nothing**. The skill is plain Markdown instructions — no code, no runtime, no install-time permission prompt. `/plugin install` only drops text files into your Claude Code plugins directory.
 
 The skill never gets "access to your vault." When you invoke it and Claude goes to write a note, the actual file read/write is performed by **Claude Code's own tools**, gated by **Claude Code's permission system**:
 
 - Claude Code asks *you* per action — e.g. "allow write to `…/6. Main Notes/x.md`?" — unless you have pre-allowed those paths in your settings.
 - The session runs as your user account, so it can only reach files you can already reach. There is no separate login or OAuth grant.
 
-The only setup step is a **config edit, not a permission grant**: open `SKILL.md` and set `<VAULT_ROOT>` to your vault path. Until you do, the skill has no path to act on.
+The only setup step is a **config write, not a permission grant**: the first-run wizard saves your vault path to `~/.claude/obsidian-notes-vault-config.yaml`. Until it exists, the skill has no path to act on. You never edit `SKILL.md`.
 
 **Trust model.** Because a skill can point Claude at any path you configure, the safeguard is that `SKILL.md` is short and auditable — read it before you use it. This skill makes no network calls and handles no secrets (see [`SECURITY.md`](SECURITY.md)).
 

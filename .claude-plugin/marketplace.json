@@ -1,0 +1,17 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "obsidian-notes",
+  "description": "Obsidian note filing + formatting skill for Claude Code. Matches your own vault structure.",
+  "owner": {
+    "name": "Kaushik Hegde",
+    "url": "https://github.com/kaushikhegde11"
+  },
+  "plugins": [
+    {
+      "name": "obsidian-notes",
+      "description": "File and reformat notes into your own Obsidian vault structure. Setup wizard learns the vault once, then reuses it.",
+      "source": "./",
+      "category": "productivity"
+    }
+  ]
+}
